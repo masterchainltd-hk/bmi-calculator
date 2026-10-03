@@ -3,9 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMI 計算機 | 你的第一個微型工具</title>
+    
+    <!-- 基本 SEO 標籤 -->
+    <title>BMI 計算機 | 免費線上身體質量指數測試</title>
+    <meta name="description" content="免費、快速且無廣告的線上 BMI 計算機。輸入身高與體重，立即換算你的身體質量指數，並對照衛福部國健署最新標準，了解自己的健康狀態。">
+    <meta name="keywords" content="BMI計算機, BMI標準, 身體質量指數, 健康工具, 減重測量">
+    <meta name="author" content="你的名字或品牌名稱">
+    
+    <!-- Open Graph 標籤 (讓貼到 FB, LINE, IG 時有漂亮的預覽卡片) -->
+    <meta property="og:title" content="BMI 計算機 | 免費線上身體質量指數測試">
+    <meta property="og:description" content="免費、快速且無廣告的線上 BMI 計算機。立即換算你的身體質量指數！">
+    <meta property="og:type" content="website">
+    
+    <!-- Schema 結構化資料 (告訴 Google 這是一個軟體工具，增加搜尋排名權重) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "線上 BMI 計算機",
+      "description": "免費且快速的線上 BMI (身體質量指數) 計算工具，支援響應式設計，自動判斷體重狀態。",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "TWD"
+      }
+    }
+    </script>
+
     <style>
-        /* 基礎設定與排版 */
+        /* 基礎設定與排版 (與原版相同) */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
@@ -26,7 +54,6 @@
         }
         h1 { text-align: center; color: #1f2937; margin-bottom: 24px; font-size: 24px;}
         
-        /* 表單與按鈕設計 */
         .form-group { margin-bottom: 16px; }
         label { display: block; margin-bottom: 8px; color: #4b5563; font-weight: 500;}
         input { 
@@ -53,7 +80,6 @@
         }
         button:hover { background-color: #2563eb; }
         
-        /* 結果顯示區塊 */
         #result { 
             margin-top: 24px; 
             text-align: center; 
@@ -64,7 +90,6 @@
         .bmi-value { font-size: 32px; font-weight: bold; margin-bottom: 8px; }
         .bmi-status { font-size: 16px; font-weight: 500; }
         
-        /* 狀態顏色 */
         .normal { background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
         .warning { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
         .danger { background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
@@ -101,23 +126,18 @@
             const valueDiv = document.getElementById('bmi-value');
             const statusDiv = document.getElementById('bmi-status');
 
-            // 檢查輸入值是否有效
             if (!heightInput || !weightInput || heightInput <= 0 || weightInput <= 0) {
                 alert('請輸入有效的身高與體重數值！');
                 return;
             }
 
-            // 計算邏輯
             const heightInMeters = heightInput / 100;
             const bmi = (weightInput / (heightInMeters * heightInMeters)).toFixed(1);
             
             valueDiv.textContent = `BMI: ${bmi}`;
             resultDiv.style.display = 'block';
-
-            // 清除之前的狀態顏色
             resultDiv.className = '';
 
-            // 判斷狀態（採用台灣國健署成人標準）
             if (bmi < 18.5) {
                 statusDiv.textContent = '狀態：體重過輕';
                 resultDiv.classList.add('warning');
